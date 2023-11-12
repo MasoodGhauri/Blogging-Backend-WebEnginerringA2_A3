@@ -1,13 +1,19 @@
 # WebEnginerringA2_A3
 
-Backend of a Blogging applicion made using node js, express, and mongoose.
+The backend of a Blogging application made using node js, express, and mongoose.
 
+# Postman Test scripts and Documentation
+-This repo contains a sample Postman collections JSON file named (WEB_A2_A3.postman_collection.json)
+-Test scripts and documentation using Postman can be found on the following link
+(https://documenter.getpostman.com/view/30426704/2s9YXiYgfu#d53b4853-29ec-423b-9871-08582776710d)
+
+# Modules
 1. User Authentication Module:
 - User registration with fields: username, email, password.
 - User login with JWT-based authentication.
 - User profile retrieval and update.
 - Implemented user roles (e.g., regular user and admin).
-- Identify the api endpoints which require authentication and implement accordingly.
+- Identify the api endpoints which require authentication and implement them accordingly.
   
 2. Blog Post Management Module:
 - Create, read, update, and delete blog posts (Only owner of the blog post shall be able to
