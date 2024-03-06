@@ -14,7 +14,10 @@ const {
   getBlogsByPagination,
   getBlogsSortedByCreationTime,
   getSearchedBlogs,
-  getFollowedBlogs
+  getFollowedBlogs,
+  getDemoBlogs,
+  getBlogWithUserAuthor,
+  getViewBlogs,
 } = require("../Controllers/BlogController");
 const express = require("express");
 
@@ -22,7 +25,10 @@ const router = express.Router();
 
 router.post("/new", verifyAuth, postBlog);
 router.patch("/", verifyAuth, verifyAuthorAuth, updateBlog);
-router.get("/followedblogs", verifyAuth,getFollowedBlogs);
+router.get("/followedblogs", verifyAuth, getFollowedBlogs);
+router.get("/myblogs", verifyAuth, getBlogWithUserAuthor);
+router.get("/viewBlogs/:id", getViewBlogs);
+router.get("/getAllBlogDemo", getDemoBlogs);
 router.get("/", getBlogsByPagination);
 router.get("/sorted", getBlogsSortedByCreationTime);
 router.get("/search", getSearchedBlogs);
@@ -31,6 +37,6 @@ router.patch("/activate", verifyAuth, verifyAuthorAuth, unHideBlog);
 router.patch("/comment", verifyAuth, addComment);
 router.patch("/rate", verifyAuth, addRating);
 router.get("/:id", getBlog);
-router.delete("/:id", verifyAuth, verifyAuthorAuth, deleteBlog);
+router.delete("/delete", verifyAuth, verifyAuthorAuth, deleteBlog);
 
 module.exports = router;

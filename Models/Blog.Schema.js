@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 const Blog = mongoose.Schema(
   {
-    Author: String,
+    Author: {
+      name: String,
+      id: String,
+    },
     Body: String,
     Title: String,
     Keywords: [{ type: String, default: "" }],
@@ -13,7 +16,7 @@ const Blog = mongoose.Schema(
         stars: Number,
       },
     ],
-    Comments: [{ userID: String, body: String }],
+    Comments: [{ userID: String, userName: String, body: String }],
     Status: {
       type: String,
       default: "active",

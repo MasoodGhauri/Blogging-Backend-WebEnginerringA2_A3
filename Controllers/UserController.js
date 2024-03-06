@@ -178,6 +178,17 @@ const unFollowUser = async (req, res) => {
   }
 };
 
+const allUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, "-Password");
+
+    res.status(200).send({ Success: true, Users: users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ Success: true, Message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   register,
   getUser,
@@ -187,4 +198,5 @@ module.exports = {
   deleteUser,
   followUser,
   unFollowUser,
+  allUsers,
 };

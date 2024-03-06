@@ -15,7 +15,7 @@ const login = async (req, res) => {
           let R = foundUser._doc.UserRole;
 
           let token = await jwt.sign({ I, U, E, R }, process.env.SECRET_KEY, {
-            expiresIn: "3m",
+            expiresIn: "10m",
           });
 
           let { Password, ...rest } = foundUser._doc;
@@ -34,9 +34,11 @@ const login = async (req, res) => {
       } else {
         res.json({ Success: false, Message: "Invalid Credentials" });
       }
+    } else {
+      res.status(404).json({ Success: false, Message: "User not found" });
     }
   } catch (err) {
-    res.json({ Success: false, Message: "User not Found" });
+    res.status(500).json({ Success: false, Message: "Internal Server Error" });
   }
 };
 
@@ -56,10 +58,14 @@ const verifyAuth = async (req, res, next) => {
       //   res.status(200).json({ Message: "Authenticated" });
       next();
     } else {
-      res.status(404).json({ Message: "Your Are Not Authenticated" });
+      res
+        .status(404)
+        .json({ Success: false, Message: "Your Are Not Authenticated" });
     }
   } catch (err) {
-    res.status(404).json({ Message: "Your Are Not Authenticated", err });
+    res
+      .status(404)
+      .json({ Success: false, Message: "Your Are Not Authenticated", err });
   }
 };
 
@@ -69,7 +75,7 @@ const verifyAuthorAuth = (req, res, next) => {
 
   Blog.findById(id)
     .then((blog) => {
-      if (blog._doc.Author === userId) {
+      if (blog._doc.Author.id === userId) {
         next();
       } else {
         res
